@@ -39,7 +39,7 @@ built into FastAPI.  Visit http://127.0.0.1:8000/docs.  You may then:
 * Create a user by issuing a `POST` to the `/auth/register` endpoint
 * Log the user in by issuing a `POST` to the `/auth/login` endpoint
 * Store your logged-in user's credentials using the _Authorize_ button (make
-  sure to only copy the access_token without the "s)
+  sure to only copy the access_token without the `"`s)
 * Get your user's profile by issuing a `GET` to the `/profile/me` endpoint
 
 At this point, congratulations—you're an Authentication API pro!  Note that
