@@ -1,5 +1,9 @@
 from security import hash_password, verify_password
 
+from sqlalchemy.exc import IntegrityError
+from unittest.mock import MagicMock
+
+
 USER = {"username": "student", "email": "student@example.com", "password": "secret123"}
 
 
@@ -58,3 +62,24 @@ def test_invalid_registration_data(client):
 
     assert registered.status_code == 422
     assert any(detail["loc"] == ["body", "password"] for detail in registered.json()["detail"])
+
+
+def test_register_encounters_db_integrity_error(client, session_frobbers):
+    def commit_throws_integrity_error(session):
+        def throw_integrity_error():
+            raise IntegrityError(MagicMock(), MagicMock(), MagicMock())
+        session.commit = throw_integrity_error
+    session_frobbers.append(commit_throws_integrity_error)
+
+    registered = client.post("/auth/register", json=USER)
+
+    assert registered.status_code == 409
+
+
+def test_login_unknown_user(client):
+    user = USER.copy()
+    user["email"] += "-NOT"
+
+    response = client.post("/auth/login", json=user)
+
+    assert response.status_code == 401

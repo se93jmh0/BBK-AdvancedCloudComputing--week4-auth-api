@@ -54,18 +54,27 @@ To run the Authentication API automated tests, one must employ Pytest; e.g.:
 Here's what the output should look like roughly:
 
     ============================= test session starts ==============================
-    platform linux -- Python 3.14.4, pytest-9.1.1, pluggy-1.7.0 -- /home/jhorns01/Uni/BBK/DataAnalyticsAndAI/AdvancedCloudComputing/week4-auth-api/.venv/bin/python
+    platform linux -- Python 3.14.4, pytest-9.1.1, pluggy-1.7.0 -- /home/jhorns01/Uni/BBK/DataAnalyticsAndAI/AdvancedCloudComputing/week4-auth-api/.venv/bin/python3
     cachedir: .pytest_cache
     rootdir: /home/jhorns01/Uni/BBK/DataAnalyticsAndAI/AdvancedCloudComputing/week4-auth-api
-    plugins: anyio-4.16.0
-    collecting ... collected 6 items
+    plugins: cov-7.1.0, anyio-4.16.0
+    collecting ... collected 15 items
 
-    tests/test_auth.py::test_password_hash PASSED                            [ 16%]
-    tests/test_auth.py::test_login_and_profile PASSED                        [ 33%]
-    tests/test_auth.py::test_profile_requires_token PASSED                   [ 50%]
-    tests/test_auth.py::test_duplicate_registration PASSED                   [ 66%]
-    tests/test_auth.py::test_wrong_password_login PASSED                     [ 83%]
-    tests/test_auth.py::test_invalid_registration_data PASSED                [100%]
+    tests/test_application.py::test_home PASSED                              [  6%]
+    tests/test_auth.py::test_password_hash PASSED                            [ 13%]
+    tests/test_auth.py::test_login_and_profile PASSED                        [ 20%]
+    tests/test_auth.py::test_profile_requires_token PASSED                   [ 26%]
+    tests/test_auth.py::test_duplicate_registration PASSED                   [ 33%]
+    tests/test_auth.py::test_wrong_password_login PASSED                     [ 40%]
+    tests/test_auth.py::test_invalid_registration_data PASSED                [ 46%]
+    tests/test_auth.py::test_register_encounters_db_integrity_error PASSED   [ 53%]
+    tests/test_auth.py::test_login_unknown_user PASSED                       [ 60%]
+    tests/test_database.py::test_get_db PASSED                               [ 66%]
+    tests/test_main.py::test_main PASSED                                     [ 73%]
+    tests/test_security.py::test_small_secret_key PASSED                     [ 80%]
+    tests/test_security.py::test_get_current_user_empty_sub PASSED           [ 86%]
+    tests/test_security.py::test_get_current_user_expired_jwt PASSED         [ 93%]
+    tests/test_security.py::test_get_current_user_unknown_user PASSED        [100%]
 
     =============================== warnings summary ===============================
     .venv/lib/python3.14/site-packages/fastapi/testclient.py:1
@@ -73,7 +82,7 @@ Here's what the output should look like roughly:
         from starlette.testclient import TestClient as TestClient  # noqa
 
     -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-    ========================= 6 passed, 1 warning in 0.39s =========================
+    ======================== 15 passed, 1 warning in 0.64s =========================
 
 And don't worry—running the tests doesn't affect the local `auth.db`.
 
